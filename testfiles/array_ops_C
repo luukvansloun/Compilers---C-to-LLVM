@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main() {
+	// Exception will be thrown due to undeclared array size
+	int a[3] = {10, 20, 30};
+	printf("Value: ");
+
+	char b = 'b';
+	float c = b * 2;
+
+	a[2] = c;
+
+	printf("%d\n", a[2]);
+
+	return 0;
+}

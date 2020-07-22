@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main() {
+	// Pointer type declarations and assignments 
+	int a = 8;
+	int c = a + 3;
+	int* b = &a;
+	printf("Enter an integer: ");
+	scanf("%d", b);
+	a = a * c;
+
+	printf("%d\n", a);
+
+	char q = 'c';
+	char* p_q = &q;
+	float f = 3.1;
+	char d_p_q = *p_q;
+	int f_c_i = d_p_q + f;
+	
+	printf("%d\n", f_c_i);
+
+	return 0;
+}

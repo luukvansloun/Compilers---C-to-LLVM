@@ -1,0 +1,8 @@
+#include <stdio.h>
+
+int main() {
+	// Exception will be thrown due to undeclared array size
+	int a[];
+
+	return 0;
+}

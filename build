@@ -1,0 +1,5 @@
+java -jar antlr-4.7.2-complete.jar -Dlanguage=Python3 C_Grammar.g4 -visitor && 
+python3 c2llvm.py c_prog llvm_prog &&
+lli llvm_prog &&
+dot AST.dot -Tpng -o AST.png &&
+dot SymbolTable.dot -Tpng -o SymbolTable.png

@@ -1,0 +1,121 @@
+@main.string.3.2 = unnamed_addr constant [16 x i8] c"Result %d = %f\0A\00"
+@calculate.operators = private unnamed_addr constant [4 x i8] [i8 43, i8 45, i8 42, i8 47]
+declare i32 @printf(i8*, ...) nounwind
+declare i32 @scanf(i8*, ...) nounwind
+
+@index = global i32 3
+
+define float @calculate (i32,i32,i32) {
+%op_index = alloca i32 
+store i32 %0, i32* %op_index
+%op_a = alloca i32 
+store i32 %1, i32* %op_a
+%op_b = alloca i32 
+store i32 %2, i32* %op_b
+%result = alloca float 
+%operators = alloca [4 x i8]
+%4 = bitcast [4 x i8]* %operators to i8*
+call void @llvm.memcpy.p0i8.p0i8.i32(i8* %4, i8* bitcast ([4 x i8]* @calculate.operators to i8*), i32 4, i32 1, i1 false)
+%5 = load i32, i32* %op_index
+%6 = getelementptr inbounds [4 x i8], [4 x i8]* %operators, i32 0, i32 %5
+%7 = load i8, i8* %6
+%8 = icmp eq i8 %7, 43
+br i1 %8, label %label.1, label %label.2
+
+
+label.1:
+%9 = load i32, i32* %op_a
+%10 = load i32, i32* %op_b
+%11 = add i32 %9, %10
+%12 = sitofp i32 %11 to float
+store float %12, float* %result
+br label %label.7
+
+label.2:
+%13 = load i32, i32* %op_index
+%14 = getelementptr inbounds [4 x i8], [4 x i8]* %operators, i32 0, i32 %13
+%15 = load i8, i8* %14
+%16 = icmp eq i8 %15, 45
+br i1 %16, label %label.3, label %label.4
+
+
+label.3:
+%17 = load i32, i32* %op_a
+%18 = load i32, i32* %op_b
+%19 = sub i32 %17, %18
+%20 = sitofp i32 %19 to float
+store float %20, float* %result
+br label %label.7
+
+label.4:
+%21 = load i32, i32* %op_index
+%22 = getelementptr inbounds [4 x i8], [4 x i8]* %operators, i32 0, i32 %21
+%23 = load i8, i8* %22
+%24 = icmp eq i8 %23, 42
+br i1 %24, label %label.5, label %label.6
+
+
+label.5:
+%25 = load i32, i32* %op_a
+%26 = load i32, i32* %op_b
+%27 = mul i32 %25, %26
+%28 = sitofp i32 %27 to float
+store float %28, float* %result
+br label %label.7
+
+label.6:
+%29 = load i32, i32* %op_a
+%30 = load i32, i32* %op_b
+%31 = sdiv i32 %29, %30
+%32 = sitofp i32 %31 to float
+store float %32, float* %result
+br label %label.7
+
+label.7:
+br label %label.8
+
+label.8:
+br label %label.9
+
+label.9:
+%33 = load float, float* %result
+ret float %33
+}
+
+define i32 @main () {
+%a.1 = alloca i32
+store i32 10, i32* %a.1
+%b.1 = alloca i32
+store i32 2, i32* %b.1
+%1 = load i32, i32* @index
+%localIndex.1 = alloca i32
+store i32 %1, i32* %localIndex.1
+br label %label.10
+
+
+label.10:
+%2 = load i32, i32* %localIndex.1
+%3 = icmp sge i32 %2, 0
+br i1 %3, label %label.11, label %label.12
+
+label.11:
+%string.3.2 = alloca i8*
+store i8* getelementptr inbounds ([16 x i8], [16 x i8]* @main.string.3.2, i32 0, i32 0), i8** %string.3.2
+%4 = load i8*, i8** %string.3.2
+%5 = load i32, i32* %localIndex.1
+%6 = load i32, i32* %localIndex.1
+%7 = load i32, i32* %a.1
+%8 = load i32, i32* %b.1
+%9 = call float @calculate(i32 %6, i32 %7, i32 %8)
+%10 = fpext float %9 to double
+%11 = call i32 (i8*, ...) @printf(i8* %4, i32 %5, double %10)
+%12 = load i32, i32* %localIndex.1
+%13 = sub i32 %12, 1
+store i32 %13, i32* %localIndex.1
+br label %label.10
+
+label.12:
+ret i32 0
+}
+
+declare void @llvm.memcpy.p0i8.p0i8.i32(i8* nocapture writeonly, i8* nocapture readonly, i32, i32, i1)

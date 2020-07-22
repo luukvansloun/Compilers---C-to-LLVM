@@ -1,0 +1,12 @@
+python3 c2llvm.py ./testfiles/pointer_type_C ./testfiles/pointer_type_LLVM &&
+lli ./testfiles/pointer_type_LLVM &&
+python3 c2llvm.py ./testfiles/arithmetic_ops_C ./testfiles/arithmetic_ops_LLVM &&
+lli ./testfiles/arithmetic_ops_LLVM &&
+python3 c2llvm.py ./testfiles/regular_type_C ./testfiles/regular_type_LLVM &&
+lli ./testfiles/regular_type_LLVM &&
+python3 c2llvm.py ./testfiles/array_ops_C ./testfiles/array_ops_LLVM &&
+lli ./testfiles/array_ops_LLVM &&
+python3 c2llvm.py ./testfiles/function_ops_C ./testfiles/function_ops_LLVM &&
+lli ./testfiles/function_ops_LLVM &&
+python3 c2llvm.py ./testfiles/conditional_ops_C ./testfiles/conditional_ops_LLVM &&
+lli ./testfiles/conditional_ops_LLVM
